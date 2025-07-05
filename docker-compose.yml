@@ -14,11 +14,12 @@ services:
     volumes:
       - db-store:/var/lib/postgresql/data
     networks:
-      - todo_net
+      - kachi_net
 
 volumes:
   db-store:
+  pgadmin:
 
 networks:
-  todo_net:
+  kachi_net:
     driver: bridge
