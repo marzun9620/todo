@@ -1,0 +1,20 @@
+-- Create Users table
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create Tasks table
+CREATE TABLE tasks (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    contents TEXT,
+    status VARCHAR(50) NOT NULL DEFAULT 'todo' CHECK (status IN ('todo', 'in_progress', 'finished')),
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+

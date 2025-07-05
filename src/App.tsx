@@ -1,100 +1,99 @@
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
-export default function App() {
+export function Layout() {
   return (
-    <div>
-      <h1>Basic Example</h1>
-
-      <p>
-        This example demonstrates some of the core features of React Router
-        including nested <code>&lt;Route&gt;</code>s,{" "}
-        <code>&lt;Outlet&gt;</code>s, <code>&lt;Link&gt;</code>s, and using a
-        "*" route (aka "splat route") to render a "not found" page when someone
-        visits an unrecognized URL.
-      </p>
-
-      {/* Routes nest inside one another. Nested route paths build upon
-            parent route paths, and nested route elements render inside
-            parent route elements. See the note about <Outlet> below. */}
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<Dashboard />} />
-
-          {/* Using path="*"" means "match anything", so this route
-                acts like a catch-all for URLs that we don't have explicit
-                routes for. */}
-          <Route path="*" element={<NoMatch />} />
-        </Route>
-      </Routes>
-    </div>
-  );
-}
-
-function Layout() {
-  return (
-    <div>
-      {/* A "layout route" is a good place to put markup you want to
-          share across all the pages on your site, like navigation. */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
-          </li>
-        </ul>
+    <div className="min-h-screen bg-gray-50">
+      <nav className="bg-white shadow">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <Link to="/" className="text-xl font-bold text-gray-900">
+                Todo App
+              </Link>
+            </div>
+            <div className="flex items-center space-x-8">
+              <Link 
+                to="/" 
+                className="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Dashboard
+              </Link>
+              <Link 
+                to="/users" 
+                className="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Users
+              </Link>
+              <Link 
+                to="/tasks" 
+                className="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Tasks
+              </Link>
+            </div>
+          </div>
+        </div>
       </nav>
 
-      <hr />
-
-      {/* An <Outlet> renders whatever child route is currently active,
-          so you can think about this <Outlet> as a placeholder for
-          the child routes we defined above. */}
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 }
 
-function Home() {
+export function Home() {
   return (
-    <div>
-      <h2>Home</h2>
+    <div className="container mx-auto px-4 py-8">
+      <div className="bg-white shadow rounded-lg p-6">
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">Todo Application Dashboard</h1>
+        <p className="text-gray-600 mb-6">
+          Welcome to your todo application. Manage users and tasks efficiently.
+        </p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-blue-50 p-6 rounded-lg">
+            <h2 className="text-xl font-semibold text-blue-900 mb-2">User Management</h2>
+            <p className="text-blue-700 mb-4">Create, edit, and manage users in your system.</p>
+            <Link 
+              to="/users" 
+              className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Manage Users
+            </Link>
+          </div>
+          
+          <div className="bg-green-50 p-6 rounded-lg">
+            <h2 className="text-xl font-semibold text-green-900 mb-2">Task Management</h2>
+            <p className="text-green-700 mb-4">Create and track tasks across different statuses.</p>
+            <Link 
+              to="/tasks" 
+              className="inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+            >
+              Manage Tasks
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
-function About() {
+export function NoMatch() {
   return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
-  );
-}
-
-function NoMatch() {
-  return (
-    <div>
-      <h2>Nothing to see here!</h2>
-      <p>
-        <Link to="/">Go to the home page</Link>
-      </p>
+    <div className="container mx-auto px-4 py-8">
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Page Not Found</h2>
+        <p className="text-gray-600 mb-6">
+          The page you're looking for doesn't exist.
+        </p>
+        <Link 
+          to="/" 
+          className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+        >
+          Go to Dashboard
+        </Link>
+      </div>
     </div>
   );
 }
